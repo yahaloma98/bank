@@ -77,7 +77,6 @@ public class Main {
             int choiceInt = sc.nextInt();
             switch (choiceInt) {
                 case 1:
-
                     break;
                 case 2:
 

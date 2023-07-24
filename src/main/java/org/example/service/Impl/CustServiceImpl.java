@@ -25,16 +25,28 @@ public class CustServiceImpl implements CustService {
     public boolean isAcctNoLogin(String acctNo, String password) {
         CustDao custDao = new CustDaoImpl();
         try {
-            List<Map<String, Object>> resultList = custDao.selectOnlineNO(acctNo, password);
-            if (resultList.size() == 0) throw new Exception("账号不存在！");
-            if (!resultList.get(0).get("acctNo").equals(acctNo)) throw new Exception("账号错误！");
-            if (!resultList.get(0).get("password").equals(password)) throw new Exception("密码错误!");
-            if (resultList.get(0).get("onlineNo")!=null) throw new Exception("已经申请过网上银行!");
+            List<Map<String, Object>> resultList = custDao.selectAcctNO(acctNo, password);
+            if (resultList.size() == 0) {
+                System.out.println("账号不存在！");
+                throw new Exception("账号不存在！");
+            }
+            if (!resultList.get(0).get("acctNo").equals(acctNo)) {
+                System.out.println("账号错误！");
+                throw new Exception("账号错误！");
+            }
+            if (!resultList.get(0).get("password").equals(password)) {
+                System.out.println("密码错误！");
+                throw new Exception("密码错误!");
+            }
+            if (resultList.get(0).get("onlineNo")!=null) {
+                System.out.println("已经申请过网上银行！");
+                throw new Exception("已经申请过网上银行!");
+            }
             custDao.updateOnlineNo(acctNo);
-            logger.debug("INFO: ", "网上银行申请成功!");
+            //logger.debug("INFO: ", "网上银行申请成功!");
             return true;
         } catch (Exception exception) {
-            logger.error("ERROR: ", exception);
+            //logger.error("ERROR: ", exception);
         }
         return false;
     }
