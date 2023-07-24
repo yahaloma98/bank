@@ -18,7 +18,7 @@ public class AcctDaoImpl implements AcctDao {
             List<Map<String, Object>> resultList = jdbcDao.select(sql);
             return resultList;
         } catch (Exception exception) {
-            logger.error("ERROR: ", exception);
+            //logger.error("ERROR: ", exception);
         }
         return null;
     }
@@ -36,7 +36,7 @@ public class AcctDaoImpl implements AcctDao {
             jdbcDao.insertOrDeleteOrUpdate(sql);
             return true;
         } catch (Exception exception) {
-            logger.error("ERROR: ", exception);
+            //logger.error("ERROR: ", exception);
         }
         return false;
     }

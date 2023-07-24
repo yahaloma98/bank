@@ -11,7 +11,6 @@ public interface CustDao {
 
     List<Map<String, Object>> selectCustByOnlineNo(String onlineNo);
 
-    List<Map<String, Object>> selectOnlineNO(String onlineNo, String password);
     boolean updateOnlineNo(String acctNo);
 
     boolean updatePwd(String acctNo,String password);

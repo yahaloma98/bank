@@ -59,7 +59,6 @@ public class Main {
         CustServiceImpl custService = new CustServiceImpl();
         try {
             if (custService.isLogin(onlineNo, password)) {
-                System.out.println("登录成功！");
                 main.mainMenu(onlineNo);
             }
         } catch (Exception exception) {

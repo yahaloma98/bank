@@ -75,14 +75,24 @@ public class CustServiceImpl implements CustService {
     public boolean isLogin(String onlineNo, String password) {
         CustDao custDao = new CustDaoImpl();
         try {
-            List<Map<String, Object>> resultList = custDao.selectOnlineNO(onlineNo, password);
-            if (resultList.size() == 0) throw new Exception("网上银行账号不存在！");
-            if (!resultList.get(0).get("onlineNo").equals(onlineNo)) throw new Exception("网上银行账号错误！");
-            if (!resultList.get(0).get("password").equals(password)) throw new Exception("密码错误!");
-            logger.debug("INFO: ", "网上银行登录成功!");
+            List<Map<String, Object>> resultList = custDao.selectCustByOnlineNo(onlineNo);
+            if (resultList.size() == 0) {
+                System.out.println("网上银行账号不存在！");
+                throw new Exception("网上银行账号不存在！");
+            }
+            if (!resultList.get(0).get("onlineNo").equals(onlineNo)) {
+                System.out.println("网上银行账号错误！");
+                throw new Exception("网上银行账号错误！");
+            }
+            if (!resultList.get(0).get("password").equals(password)) {
+                System.out.println("密码错误！");
+                throw new Exception("密码错误!");
+            }
+            System.out.println("网上银行登录成功!");
+            //logger.debug("INFO: ", "网上银行登录成功!");
             return true;
         } catch (Exception exception) {
-            logger.error("ERROR: ", exception);
+            //logger.error("ERROR: ", exception);
         }
 
         return false;

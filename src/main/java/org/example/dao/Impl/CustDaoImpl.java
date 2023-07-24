@@ -40,20 +40,6 @@ public class CustDaoImpl implements CustDao {
     }
 
     @Override
-    public List<Map<String, Object>> selectOnlineNO(String onlineNo, String password) {
-        //JDBCDao jdbcDao = new JDBCDao();
-        //sql语句
-        String sql = "SELECT * FROM custinfo WHERE onlineNo = '" + onlineNo + "'";
-        try {
-            List<Map<String, Object>> resultList = jdbcDao.select(sql);
-            return resultList;
-        } catch (Exception exception) {
-            logger.error("ERROR: ", exception);
-        }
-        return null;
-    }
-
-    @Override
     public boolean updateOnlineNo(String acctNo) {
         //JDBCDao jdbcDao = new JDBCDao();
         NoGenerate noGenerate = new NoGenerate();

@@ -17,12 +17,12 @@ public class JDBCDao {
             connection.setAutoCommit(false);
             PreparedStatement pst = connection.prepareStatement(sql);
             int execute = pst.executeUpdate();
-            System.out.println("执行语句：" + sql + "," + execute + "行数据受影响");
+            //System.out.println("执行语句：" + sql + "," + execute + "行数据受影响");
             connection.commit();
             DBHelper.closeConnection(null, connection,pst);
             res = 1;
         } catch (SQLException e) {
-            System.out.println("异常提醒：" + e);
+            //System.out.println("异常提醒：" + e);
         }
 
         return res;
@@ -41,7 +41,7 @@ public class JDBCDao {
             connection.commit();
             DBHelper.closeConnection(resultSet, connection,pst );
         } catch (SQLException e) {
-            System.out.println("异常提醒：" + e);
+            //System.out.println("异常提醒：" + e);
         }
         return returnResultToList;
     }
@@ -66,10 +66,10 @@ public class JDBCDao {
                 }
                 // 把一条记录的 Map 对象放入准备的 List 中
                 values.add(map);
-                System.out.println();
+                //System.out.println();
             }
         } catch (SQLException e) {
-            System.out.println("异常提醒：" + e);
+            //System.out.println("异常提醒：" + e);
         }
         return values;
     }
