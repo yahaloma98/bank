@@ -7,7 +7,9 @@ import java.util.Map;
 
 public interface CustDao {
 
-    List<Map<String, Object>> selectAcctNO(String acctNo, String password);
+    List<Map<String, Object>> selectCustByAcctNo(String acctNo);
+
+    List<Map<String, Object>> selectCustByOnlineNo(String onlineNo);
 
     List<Map<String, Object>> selectOnlineNO(String onlineNo, String password);
     boolean updateOnlineNo(String acctNo);

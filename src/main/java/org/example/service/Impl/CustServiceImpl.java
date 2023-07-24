@@ -25,7 +25,7 @@ public class CustServiceImpl implements CustService {
     public boolean isAcctNoLogin(String acctNo, String password) {
         CustDao custDao = new CustDaoImpl();
         try {
-            List<Map<String, Object>> resultList = custDao.selectAcctNO(acctNo, password);
+            List<Map<String, Object>> resultList = custDao.selectCustByAcctNo(acctNo);
             if (resultList.size() == 0) {
                 System.out.println("账号不存在！");
                 throw new Exception("账号不存在！");
@@ -43,26 +43,12 @@ public class CustServiceImpl implements CustService {
                 throw new Exception("已经申请过网上银行!");
             }
             custDao.updateOnlineNo(acctNo);
+            System.out.println("网上银行申请成功!");
             //logger.debug("INFO: ", "网上银行申请成功!");
             return true;
         } catch (Exception exception) {
             //logger.error("ERROR: ", exception);
         }
-        return false;
-    }
-
-    /**
-     * @param custInfo
-     */
-    public boolean register(CustInfo custInfo) {
-        CustDao custDao = new CustDaoImpl();
-        try {
-           //int res = custDao.insertCustomer(custInfo);
-           //return res == 1;
-        } catch (Exception exception) {
-            logger.error("ERROR: ", exception);
-        }
-
         return false;
     }
 

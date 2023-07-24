@@ -8,7 +8,5 @@ public interface CustService {
 
     boolean isLogin(String onlineNo, String password);
 
-    boolean register(CustInfo custInfo);
-
     boolean changePwd(String acctNo,String password);
 }

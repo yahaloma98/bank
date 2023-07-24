@@ -2,8 +2,11 @@ package org.example.boot;
 
 
 import org.example.service.Impl.CustServiceImpl;
+import org.example.service.Impl.SerialserviceImpl;
+import org.example.service.Serialservice;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
 
@@ -12,7 +15,7 @@ public class Main {
         Main main = new Main();
         Scanner sc = new Scanner(System.in);
         while (true) {
-            System.out.println("---------------欢迎光临---------------");
+            System.out.println("==============================");
             System.out.println("1.申请网上银行");
             System.out.println("2.登录");
             System.out.println("3.退出");
@@ -26,7 +29,7 @@ public class Main {
                     main.login();
                     break;
                 case 3:
-                    break;
+                    return;
                 default:
                     break;
             }
@@ -34,23 +37,21 @@ public class Main {
     }
     public void applyOnlineBank(){
         Scanner sc = new Scanner(System.in);
-        System.out.println("===============");
+        System.out.println("==============================");
         System.out.print("请输入账号：");
         String acctNo = sc.next();
         System.out.print("请输入密码：");
         String password = sc.next();
         CustServiceImpl custService = new CustServiceImpl();
         try {
-            if (custService.isAcctNoLogin(acctNo,password)) {
-                System.out.println("登录成功！");
-            }
+            custService.isAcctNoLogin(acctNo,password);
         } catch (Exception exception) {
         }
     }
     public void login(){
         Main main = new Main();
         Scanner sc = new Scanner(System.in);
-        System.out.println("===============");
+        System.out.println("==============================");
         System.out.print("请输入网上银行账号：");
         String onlineNo = sc.next();
         System.out.print("请输入密码：");
@@ -59,15 +60,16 @@ public class Main {
         try {
             if (custService.isLogin(onlineNo, password)) {
                 System.out.println("登录成功！");
-                main.mainMenu();
+                main.mainMenu(onlineNo);
             }
         } catch (Exception exception) {
         }
     }
 
-    public void mainMenu(){
+    public void mainMenu(String onlineNo){
         Scanner sc = new Scanner(System.in);
-        System.out.println("===============");
+        Serialservice serialservice = new SerialserviceImpl();
+        System.out.println("==============================");
         while (true) {
             System.out.println("1.查询一卡通信息");
             System.out.println("2.转账汇款");
@@ -79,12 +81,17 @@ public class Main {
                 case 1:
                     break;
                 case 2:
-
+                    System.out.println("==============================");
+                    System.out.println("请输入收款人账号");
+                    String transAcctNo = sc.next();
+                    System.out.println("请输入转账金额");
+                    double amtNum = sc.nextDouble();
+                    serialservice.trans(onlineNo,transAcctNo,amtNum);
                     break;
                 case 3:
                     break;
                 case 4:
-                    break;
+                    return;
                 default:
                     break;
             }
