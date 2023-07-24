@@ -69,8 +69,8 @@ public class CustDaoImpl implements CustDao {
     }
 
     @Override
-    public boolean updateIsClosure(String onlineNo) {
-        String sql = "update custinfo set isClosure = '1' where onlineNo = '" + onlineNo + "'";
+    public boolean updateIsClosure(String onlineNo,String opertion) {
+        String sql = "update custinfo set isClosure = '"+ opertion +"' where onlineNo = '" + onlineNo + "'";
         System.out.println(sql);
         try {
             jdbcDao.insertOrDeleteOrUpdate(sql);

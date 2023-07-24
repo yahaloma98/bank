@@ -83,9 +83,31 @@ public class CustServiceImpl implements CustService {
                 System.out.println("账号处于挂失状态，不用重复挂失！");
             }
             if (resultList.get(0).get("isClosure").equals("0")){
-                custDao.updateIsClosure(onlineNo);
-                acctService.setLoss(acctNo);
+                custDao.updateIsClosure(onlineNo,"1");
+                acctService.setLoss(acctNo,"1");
                 System.out.println("挂失成功！");
+            }
+
+            return true;
+        } catch (Exception exception) {
+            //logger.error("ERROR: ", exception);
+        }
+        return false;
+    }
+
+    @Override
+    public boolean reissue(String onlineNo) {
+        AcctService acctService = new AcctServiceImpl();
+        try {
+            List<Map<String, Object>> resultList = custDao.selectCustByOnlineNo(onlineNo);
+            String acctNo = String.valueOf(resultList.get(0).get("acctNo"));
+            if (resultList.get(0).get("isClosure").equals("0")){
+                System.out.println("账号还未挂失！");
+            }
+            if (resultList.get(0).get("isClosure").equals("1")){
+                custDao.updateIsClosure(onlineNo,"0");
+                acctService.setLoss(acctNo,"0");
+                System.out.println("补办成功！");
             }
 
             return true;

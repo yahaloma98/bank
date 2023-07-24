@@ -22,9 +22,9 @@ public class AcctServiceImpl implements AcctService {
     }
 
     @Override
-    public boolean setLoss(String acctNo) {
+    public boolean setLoss(String acctNo,String opertion) {
         try {
-            acctDao.updateIsClosure(acctNo);
+            acctDao.updateIsClosure(acctNo,opertion);
         } catch (Exception e) {
             throw new RuntimeException(e);
         }

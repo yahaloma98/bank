@@ -15,6 +15,6 @@ public interface CustDao {
 
     boolean updatePwd(String onlineNo,String password);
 
-    boolean updateIsClosure(String onlineNo);
+    boolean updateIsClosure(String onlineNo,String opertion);
 
 }

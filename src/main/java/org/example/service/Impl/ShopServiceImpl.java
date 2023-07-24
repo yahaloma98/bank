@@ -6,6 +6,7 @@ import org.example.dao.Impl.AcctDaoImpl;
 import org.example.dao.Impl.CustDaoImpl;
 import org.example.dao.Impl.ShopDaoImpl;
 import org.example.dao.ShopDao;
+import org.example.service.AcctService;
 import org.example.service.ShopService;
 
 import java.util.List;
@@ -15,9 +16,15 @@ public class ShopServiceImpl implements ShopService {
     ShopDao shopDao = new ShopDaoImpl();
     AcctDao acctDao = new AcctDaoImpl();
     CustDao custDao = new CustDaoImpl();
+    AcctService acctService = new AcctServiceImpl();
+
     @Override
-    public List<Map<String, Object>> getPrdList() {
-        return shopDao.selectAllProduct();
+    public void getPrdList() {
+        List<Map<String, Object>> resultList = shopDao.selectAllProduct();
+        for (int i = 0; i < resultList.size(); i++) {
+            System.out.println("商品编号："+resultList.get(i).get("itemNo")+" 商品名："+resultList.get(i).get("productName")
+                    +" 商品价格："+resultList.get(i).get("price"));
+        }
     }
 
     private boolean isValidProductId(String itemNo){
@@ -33,12 +40,16 @@ public class ShopServiceImpl implements ShopService {
 
     @Override
     public void purchaseprd(String itemNo,String onlineNo) {
-        String acctNo =
+        List<Map<String,Object>> map=custDao.selectCustByOnlineNo(onlineNo);
+        String accno = String.valueOf(map.get(0).get("acctNo"));
+        List<Map<String, Object>> acctNo = acctDao.selectAcct(accno);
+        double aumbal = (double) acctNo.get(0).get("aumbal");
         if (isValidProductId(itemNo)){
-            if (shopDao.selectPriceByItemNo(itemNo)<=acctDao.getAccBalance(acctNo)){
+            if (shopDao.selectPriceByItemNo(itemNo)<=aumbal){
+
+                acctDao.updateAcct(accno,shopDao.selectPriceByItemNo(itemNo),"jian");
+//                System.out.println("现在该账户的余额为"+acctDao.getAccBalance(acctNo));
                 System.out.println("购买成功");
-                acctDao.updateAcct(acctNo,shopDao.selectPriceByItemNo(itemNo),"jian");
-                System.out.println("现在该账户的余额为"+acctDao.getAccBalance(acctNo));
             }else {
                 System.out.println("你没有足够的钱！");
             }

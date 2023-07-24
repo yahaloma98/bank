@@ -28,10 +28,10 @@ public class AcctDaoImpl implements AcctDao {
         String sql = null;
         try {
             if (opertion.equals("add")){
-                sql= "update acctinfo set aumbal = aumbal+'"+ amtNum + "' where acctNo = '" + number + "' and type = 'hq'";
+                sql= "update acctinfo set aumbal = aumbal+"+ amtNum + " where acctNo = '" + number + "' and type = 'hq'";
             }
             if (opertion.equals("jian")){
-                sql= "update acctinfo set aumbal = aumbal-'"+ amtNum + "' where acctNo = '" + number + "' and type = 'hq'";
+                sql= "update acctinfo set aumbal = aumbal-"+ amtNum + " where acctNo = '" + number + "' and type = 'hq'";
             }
             jdbcDao.insertOrDeleteOrUpdate(sql);
             return true;
@@ -42,8 +42,8 @@ public class AcctDaoImpl implements AcctDao {
     }
 
     @Override
-    public boolean updateIsClosure(String acctNo) {
-        String sql = "update acctinfo set isClosure = '1' where acctNo = '" + acctNo + "'";
+    public boolean updateIsClosure(String acctNo,String opertion) {
+        String sql = "update acctinfo set isClosure = '"+ opertion +"' where acctNo = '" + acctNo + "'";
         System.out.println(sql);
         try {
             jdbcDao.insertOrDeleteOrUpdate(sql);

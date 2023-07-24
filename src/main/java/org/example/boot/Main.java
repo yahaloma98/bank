@@ -125,6 +125,7 @@ public class Main {
                     custService.setLoss(onlineNo);
                     break;
                 case 4:
+                    custService.setLoss(onlineNo);
                     break;
                 case 5:
                     return;
@@ -136,23 +137,26 @@ public class Main {
     public void shopMenu(String onlineNo) {
         ShopService ss = new ShopServiceImpl();
         Scanner sc = new Scanner(System.in);
-        System.out.println("1.查询产品列表");
-        System.out.println("2.购买产品");
-        System.out.println("3.退出");
-        System.out.print("请输入序号：");
-        int choiceInt = sc.nextInt();
-        switch (choiceInt) {
-            case 1:
-                System.out.println(ss.getPrdList());
-                break;
-            case 2:
-                System.out.println("你想购买的商品编号是");
-                String next = sc.next();
-                ss.purchaseprd(next, onlineNo);
-            case 3:
-                break;
-            default:
-                break;
+        while (true) {
+            System.out.println("==============================");
+            System.out.println("1.查询产品列表");
+            System.out.println("2.购买产品");
+            System.out.println("3.退出");
+            System.out.print("请输入序号：");
+            int choiceInt = sc.nextInt();
+            switch (choiceInt) {
+                case 1:
+                    ss.getPrdList();
+                    break;
+                case 2:
+                    System.out.println("请输入想要购买的商品编号：");
+                    String next = sc.next();
+                    ss.purchaseprd(next, onlineNo);
+                case 3:
+                    return;
+                default:
+                    break;
+            }
         }
     }
 }

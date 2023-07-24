@@ -11,4 +11,6 @@ public interface CustService {
     boolean changePwd(String onlineNo,String password);
 
     boolean setLoss(String onlineNo);
+
+    boolean reissue(String onlineNo);
 }
