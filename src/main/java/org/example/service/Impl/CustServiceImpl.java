@@ -30,10 +30,10 @@ public class CustServiceImpl implements CustService {
                 System.out.println("账号不存在！");
                 throw new Exception("账号不存在！");
             }
-            if (!resultList.get(0).get("acctNo").equals(acctNo)) {
-                System.out.println("账号错误！");
-                throw new Exception("账号错误！");
-            }
+//            if (!resultList.get(0).get("acctNo").equals(acctNo)) {
+//                System.out.println("账号错误！");
+//                throw new Exception("账号错误！");
+//            }
             if (!resultList.get(0).get("password").equals(password)) {
                 System.out.println("密码错误！");
                 throw new Exception("密码错误!");

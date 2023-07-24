@@ -1,6 +1,10 @@
 package org.example.boot;
 
 
+import org.example.dao.Impl.AcctDaoImpl;
+import org.example.dao.Impl.CustDaoImpl;
+import org.example.dao.Impl.SerialDaoImpl;
+import org.example.dao.Impl.ShopDaoImpl;
 import org.example.service.Impl.CustServiceImpl;
 import org.example.service.Impl.SerialServiceImpl;
 import org.example.service.Impl.ShopServiceImpl;
@@ -9,7 +13,7 @@ import org.example.service.ShopService;
 
 import java.util.Scanner;
 
-public class Main {
+public class Main extends ShopDaoImpl {
     public static void main(String[] args) {
         Main main = new Main();
         Scanner sc = new Scanner(System.in);
@@ -125,7 +129,7 @@ public class Main {
                     custService.setLoss(onlineNo);
                     break;
                 case 4:
-                    custService.setLoss(onlineNo);
+                    custService.reissue(onlineNo);
                     break;
                 case 5:
                     return;

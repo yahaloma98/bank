@@ -1,7 +1,7 @@
 package org.example.dao.Impl;
 
 import org.example.dao.AcctDao;
-import org.example.utils.JDBCDao;
+import org.example.dao.JDBCDao;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -44,7 +44,6 @@ public class AcctDaoImpl implements AcctDao {
     @Override
     public boolean updateIsClosure(String acctNo,String opertion) {
         String sql = "update acctinfo set isClosure = '"+ opertion +"' where acctNo = '" + acctNo + "'";
-        System.out.println(sql);
         try {
             jdbcDao.insertOrDeleteOrUpdate(sql);
             return true;

@@ -1,7 +1,7 @@
 package org.example.dao.Impl;
 
 import org.example.dao.ShopDao;
-import org.example.utils.JDBCDao;
+import org.example.dao.JDBCDao;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

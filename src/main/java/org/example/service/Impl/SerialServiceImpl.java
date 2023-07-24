@@ -13,13 +13,13 @@ import java.util.List;
 import java.util.Map;
 
 public class SerialServiceImpl implements SerialService {
+    CustDao custDao = new CustDaoImpl();
+    SerialDao serialDao = new SerialDaoImpl();
 
+    AcctDao acctDao = new AcctDaoImpl();
+    AcctService acctService = new AcctServiceImpl();
     @Override
     public void trans(String onlineNo, String transAcctNo, double amtNum) {
-        CustDao custDao = new CustDaoImpl();
-        AcctDao acctDao = new AcctDaoImpl();
-        SerialDao serialDao = new SerialDaoImpl();
-        AcctService acctService = new AcctServiceImpl();
         try {
             List<Map<String, Object>> resultList = custDao.selectCustByOnlineNo(onlineNo);
             if (resultList.get(0).get("isClosure").equals("1")){
@@ -52,8 +52,7 @@ public class SerialServiceImpl implements SerialService {
 
     @Override
     public void findTrans(String onlineNo) {
-        CustDao custDao = new CustDaoImpl();
-        SerialDao serialDao = new SerialDaoImpl();
+
         try {
             List<Map<String, Object>> resultList =  custDao.selectCustByOnlineNo(onlineNo);
             String acctNo = String.valueOf(resultList.get(0).get("acctNo"));

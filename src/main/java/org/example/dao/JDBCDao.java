@@ -1,4 +1,6 @@
-package org.example.utils;
+package org.example.dao;
+
+import org.example.utils.DBHelper;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -7,6 +9,7 @@ import java.util.List;
 import java.util.Map;
 
 public class JDBCDao {
+
     /**
      *  * 增加，删除，修改
      */
@@ -17,7 +20,7 @@ public class JDBCDao {
             connection.setAutoCommit(false);
             PreparedStatement pst = connection.prepareStatement(sql);
             int execute = pst.executeUpdate();
-            System.out.println("执行语句：" + sql + "," + execute + "行数据受影响");
+            //System.out.println("执行语句：" + sql + "," + execute + "行数据受影响");
             connection.commit();
             DBHelper.closeConnection(null, connection,pst);
             res = 1;

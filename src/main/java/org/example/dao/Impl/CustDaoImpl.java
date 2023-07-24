@@ -1,8 +1,7 @@
 package org.example.dao.Impl;
 
 import org.example.dao.CustDao;
-import org.example.entity.CustInfo;
-import org.example.utils.JDBCDao;
+import org.example.dao.JDBCDao;
 import org.example.utils.NoGenerate;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -71,7 +70,6 @@ public class CustDaoImpl implements CustDao {
     @Override
     public boolean updateIsClosure(String onlineNo,String opertion) {
         String sql = "update custinfo set isClosure = '"+ opertion +"' where onlineNo = '" + onlineNo + "'";
-        System.out.println(sql);
         try {
             jdbcDao.insertOrDeleteOrUpdate(sql);
             return true;
