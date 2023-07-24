@@ -40,4 +40,17 @@ public class AcctDaoImpl implements AcctDao {
         }
         return false;
     }
+
+    @Override
+    public boolean updateIsClosure(String acctNo) {
+        String sql = "update acctinfo set isClosure = '1' where acctNo = '" + acctNo + "'";
+        System.out.println(sql);
+        try {
+            jdbcDao.insertOrDeleteOrUpdate(sql);
+            return true;
+        } catch (Exception exception) {
+            logger.error("ERROR: ", exception);
+        }
+        return false;
+    }
 }

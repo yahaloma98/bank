@@ -8,4 +8,6 @@ public interface AcctDao {
 
     boolean updateAcct(String acctNo,double amtNum,String opertion);
 
+    boolean updateIsClosure(String acctNo);
+
 }

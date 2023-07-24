@@ -55,10 +55,23 @@ public class CustDaoImpl implements CustDao {
         return false;
     }
 
-    public boolean updatePwd(String acctNo, String password) {
+    public boolean updatePwd(String onlineNo, String password) {
         //JDBCDao jdbcDao = new JDBCDao();
         String sql = "update custinfo set password = '"
-                + password + "' where acctNo = '" + acctNo + "'";
+                + password + "' where onlineNo = '" + onlineNo + "'";
+        try {
+            jdbcDao.insertOrDeleteOrUpdate(sql);
+            return true;
+        } catch (Exception exception) {
+            logger.error("ERROR: ", exception);
+        }
+        return false;
+    }
+
+    @Override
+    public boolean updateIsClosure(String onlineNo) {
+        String sql = "update custinfo set isClosure = '1' where onlineNo = '" + onlineNo + "'";
+        System.out.println(sql);
         try {
             jdbcDao.insertOrDeleteOrUpdate(sql);
             return true;

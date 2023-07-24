@@ -4,6 +4,7 @@ package org.example.service.Impl;
 import org.example.dao.CustDao;
 import org.example.dao.Impl.CustDaoImpl;
 import org.example.entity.CustInfo;
+import org.example.service.AcctService;
 import org.example.service.CustService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -14,7 +15,7 @@ import java.util.Map;
 public class CustServiceImpl implements CustService {
 
     private final Logger logger = LoggerFactory.getLogger(CustDaoImpl.class);
-
+    CustDao custDao = new CustDaoImpl();
     /**
      * 登录主账号进行网上银行申请
      *
@@ -23,7 +24,6 @@ public class CustServiceImpl implements CustService {
      * @return
      */
     public boolean isAcctNoLogin(String acctNo, String password) {
-        CustDao custDao = new CustDaoImpl();
         try {
             List<Map<String, Object>> resultList = custDao.selectCustByAcctNo(acctNo);
             if (resultList.size() == 0) {
@@ -54,16 +54,18 @@ public class CustServiceImpl implements CustService {
 
     /**
      * 修改密码
-     *
-     * @param acctNo
+     * @param onlineNo
      * @param password
      * @return
      */
-    public boolean changePwd(String acctNo, String password) {
-        CustDao custDao = new CustDaoImpl();
+    public boolean changePwd(String onlineNo, String password) {
+
         try {
-            boolean flag = custDao.updatePwd(acctNo, password);
-            if (flag) logger.debug("INFO: ", "密码修改成功!");
+            boolean flag = custDao.updatePwd(onlineNo, password);
+            if (flag) {
+                System.out.println("密码修改成功！");
+                logger.debug("INFO: ", "密码修改成功!");
+            }
             return flag;
         } catch (Exception exception) {
             logger.error("ERROR: ", exception);
@@ -72,8 +74,29 @@ public class CustServiceImpl implements CustService {
     }
 
     @Override
+    public boolean setLoss(String onlineNo) {
+        AcctService acctService = new AcctServiceImpl();
+        try {
+            List<Map<String, Object>> resultList = custDao.selectCustByOnlineNo(onlineNo);
+            String acctNo = String.valueOf(resultList.get(0).get("acctNo"));
+            if (resultList.get(0).get("isClosure").equals("1")){
+                System.out.println("账号处于挂失状态，不用重复挂失！");
+            }
+            if (resultList.get(0).get("isClosure").equals("0")){
+                custDao.updateIsClosure(onlineNo);
+                acctService.setLoss(acctNo);
+                System.out.println("挂失成功！");
+            }
+
+            return true;
+        } catch (Exception exception) {
+            //logger.error("ERROR: ", exception);
+        }
+        return false;
+    }
+
+    @Override
     public boolean isLogin(String onlineNo, String password) {
-        CustDao custDao = new CustDaoImpl();
         try {
             List<Map<String, Object>> resultList = custDao.selectCustByOnlineNo(onlineNo);
             if (resultList.size() == 0) {

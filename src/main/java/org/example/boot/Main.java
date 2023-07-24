@@ -66,6 +66,7 @@ public class Main {
     }
 
     public void mainMenu(String onlineNo){
+        Main main = new Main();
         Scanner sc = new Scanner(System.in);
         Serialservice serialservice = new SerialserviceImpl();
         System.out.println("==============================");
@@ -78,6 +79,7 @@ public class Main {
             int choiceInt = sc.nextInt();
             switch (choiceInt) {
                 case 1:
+                    main.cardMenu(onlineNo);
                     break;
                 case 2:
                     System.out.println("==============================");
@@ -95,5 +97,40 @@ public class Main {
                     break;
             }
         }
+    }
+    public void cardMenu(String onlineNo){
+        Scanner sc = new Scanner(System.in);
+        Serialservice serialservice = new SerialserviceImpl();
+        CustServiceImpl custService = new CustServiceImpl();
+        System.out.println("==============================");
+        while (true) {
+            System.out.println("1.查询交易记录");
+            System.out.println("2.修改密码");
+            System.out.println("3.挂失");
+            System.out.println("4.补办");
+            System.out.println("5.退出");
+            System.out.print("请输入序号：");
+            int choiceInt = sc.nextInt();
+            switch (choiceInt){
+                case 1:
+                    serialservice.findTrans(onlineNo);
+                    break;
+                case 2:
+                    System.out.println("==============================");
+                    System.out.println("请输入新密码：");
+                    String password = sc.next();
+                    custService.changePwd(onlineNo,password);
+                    break;
+                case 3:
+                    custService.setLoss(onlineNo);
+                    break;
+                case 4:
+                    break;
+                case 5:
+                    return;
+                default:break;
+            }
+        }
+
     }
 }

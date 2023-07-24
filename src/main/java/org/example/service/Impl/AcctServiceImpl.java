@@ -5,16 +5,31 @@ import org.example.dao.AcctDao;
 import org.example.dao.Impl.AcctDaoImpl;
 import org.example.service.AcctService;
 
-public class AcctServiceImpl implements AcctService {
+import java.util.List;
+import java.util.Map;
 
+public class AcctServiceImpl implements AcctService {
+    AcctDao acctDao = new AcctDaoImpl();
     @Override
     public void trans(String acctNo,String transAcctNo, double amtNum) {
-        AcctDao acctDao = new AcctDaoImpl();
+
         try {
             acctDao.updateAcct(acctNo,amtNum,"jian");
             acctDao.updateAcct(transAcctNo,amtNum,"add");
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
+    }
+
+    @Override
+    public boolean setLoss(String acctNo) {
+        try {
+            acctDao.updateIsClosure(acctNo);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+
+
+        return false;
     }
 }

@@ -7,6 +7,8 @@ import org.slf4j.LoggerFactory;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
+import java.util.Map;
 
 public class SerialDaoImpl implements SerialDao {
     private final Logger logger = LoggerFactory.getLogger(CustDaoImpl.class);
@@ -24,5 +26,17 @@ public class SerialDaoImpl implements SerialDao {
            // logger.error("ERROR: ", exception);
         }
         return -1;
+    }
+
+    @Override
+    public List<Map<String, Object>> selectSerialByAcctNo(String acctNo) {
+        String sql = "SELECT * FROM serialinfo WHERE acctNo = '" + acctNo + "'";
+        try {
+            List<Map<String, Object>> resultList = jdbcDao.select(sql);
+            return resultList;
+        } catch (Exception exception) {
+            logger.error("ERROR: ", exception);
+        }
+        return null;
     }
 }
