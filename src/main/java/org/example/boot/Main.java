@@ -2,12 +2,11 @@ package org.example.boot;
 
 
 import org.example.service.Impl.CustServiceImpl;
-import org.example.service.Impl.SerialserviceImpl;
-import org.example.service.Serialservice;
+import org.example.service.Impl.SerialServiceImpl;
+import org.example.service.Impl.ShopServiceImpl;
+import org.example.service.SerialService;
+import org.example.service.ShopService;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 import java.util.Scanner;
 
 public class Main {
@@ -68,7 +67,7 @@ public class Main {
     public void mainMenu(String onlineNo){
         Main main = new Main();
         Scanner sc = new Scanner(System.in);
-        Serialservice serialservice = new SerialserviceImpl();
+        SerialService serialservice = new SerialServiceImpl();
         System.out.println("==============================");
         while (true) {
             System.out.println("1.查询一卡通信息");
@@ -90,6 +89,7 @@ public class Main {
                     serialservice.trans(onlineNo,transAcctNo,amtNum);
                     break;
                 case 3:
+                    main.shopMenu(onlineNo);
                     break;
                 case 4:
                     return;
@@ -100,7 +100,7 @@ public class Main {
     }
     public void cardMenu(String onlineNo){
         Scanner sc = new Scanner(System.in);
-        Serialservice serialservice = new SerialserviceImpl();
+        SerialService serialservice = new SerialServiceImpl();
         CustServiceImpl custService = new CustServiceImpl();
         System.out.println("==============================");
         while (true) {
@@ -132,5 +132,27 @@ public class Main {
             }
         }
 
+    }
+    public void shopMenu(String onlineNo) {
+        ShopService ss = new ShopServiceImpl();
+        Scanner sc = new Scanner(System.in);
+        System.out.println("1.查询产品列表");
+        System.out.println("2.购买产品");
+        System.out.println("3.退出");
+        System.out.print("请输入序号：");
+        int choiceInt = sc.nextInt();
+        switch (choiceInt) {
+            case 1:
+                System.out.println(ss.getPrdList());
+                break;
+            case 2:
+                System.out.println("你想购买的商品编号是");
+                String next = sc.next();
+                ss.purchaseprd(next, onlineNo);
+            case 3:
+                break;
+            default:
+                break;
+        }
     }
 }
